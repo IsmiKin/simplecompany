@@ -20,6 +20,7 @@ build/
 /doc/
 /rdoc/
 
+<<<<<<< HEAD
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
 *.iml
@@ -33,6 +34,8 @@ build/
 # .idea/tasks.xml
 # .idea/dictionaries
 
+=======
+>>>>>>> d6bba477acb874226edd946b8c2b7289dc949a8e
 ## Environment normalisation:
 /.bundle/
 /vendor/bundle
@@ -45,4 +48,6 @@ build/
 # .ruby-gemset
 
 # unless supporting rvm < 1.11.0 or doing something fancy, ignore this:
+
 .rvmrc
+
