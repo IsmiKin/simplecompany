@@ -3,8 +3,8 @@ development:
   adapter: mysql2
   encoding: utf8
   schema: simplecompany
-  username: root
-  password: poweriskn
+  username: bb484da5c6be59
+  password: 9ba03ff4
   pool: 5
   timeout: 5000
 
