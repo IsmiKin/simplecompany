@@ -2,7 +2,7 @@
 
 <h2><i class="fa fa-plus"></i>&nbsp; New Company</h2>
 <br/>
-<form class="form-horizontal" method="post">
+<form class="form-horizontal newCompForm" ng-submit="submitForm()">
 
     <div class="form-group">
         <label for="inputName" class="col-sm-2 control-label">Name</label>
@@ -57,13 +57,16 @@
     </div>
 
     <hr>
-    <strong>Company stuff</strong><br/>
-    <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add person</button>
-
+    <h3><i class="fa fa-briefcase"></i> &nbsp;Company stuff</h3><br/>
+    <button type="button" class="btn btn-primary" ng-click="addPerson()"><i class="fa fa-plus"></i> Add person</button>
+    <br/><br/>
     <div class="containerStuff">
 
     </div>
 
     <hr>
     <button type="submit" class="btn btn-success"><i class="fa fa-check"></i> Submit</button>
+    <a href="#/company/admin/">
+        <button type="button" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> &nbsp; Back</button>
+    </a>
 </form>
