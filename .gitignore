@@ -21,6 +21,7 @@ build/
 /rdoc/
 
 /assets/bower
+/config/database.yml
 
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
