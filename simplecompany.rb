@@ -5,8 +5,8 @@ require 'mysql2'
 require 'rubygems'
 require 'data_mapper' # requires all the gems listed above
 require 'json'
-require_relative 'config/configvars.rb'
-require_relative 'config/configmapper.rb'
+require './config/configvars.rb'
+require './config/configmapper.rb'
 require 'dm-serializer/to_json'
 require 'base64'
 
