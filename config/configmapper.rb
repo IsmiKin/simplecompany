@@ -8,7 +8,7 @@ require 'yaml'
 configdb = YAML.load(ERB.new((File.read('config/database.yml'))).result)["development"]
 #configdb = YAML.load((File.read('config/database.yml')))["development"]
 
-DataMapper.setup(:default, "mysql://#{configdb['username']}:#{configdb['password']}@#{configdb['hostname']}/#{configdb['schema']}")
+DataMapper.setup(:default, "mysql://#{configdb['username']}:#{configdb['password']}@#{configdb['hostname']}/#{configdb['database']}")
 
 
 
