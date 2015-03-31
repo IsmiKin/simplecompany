@@ -10,7 +10,7 @@ scApp.config(function($routeProvider){
             controller  : 'mainController'
         })
 
-        .when('/company/', {
+        .when('/company/admin/', {
             templateUrl : 'views/admincompany.html',
              controller  : 'admincController'
         })
