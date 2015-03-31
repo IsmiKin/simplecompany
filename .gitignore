@@ -20,7 +20,7 @@ build/
 /doc/
 /rdoc/
 
-<<<<<<< HEAD
+
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
 *.iml
@@ -35,7 +35,7 @@ build/
 # .idea/dictionaries
 
 =======
->>>>>>> d6bba477acb874226edd946b8c2b7289dc949a8e
+
 ## Environment normalisation:
 /.bundle/
 /vendor/bundle

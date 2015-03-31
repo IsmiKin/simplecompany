@@ -10,22 +10,24 @@ require_relative 'config/configmapper.rb'
 require 'dm-serializer/to_json'
 require 'base64'
 
+set :public_folder, File.dirname(__FILE__) + '/assets'
 
-# retrieve database info
-configdb = YAML.load((File.read('config/database.yml')))["development"]
+get '/' do
+  erb :index
+end
 
 # API REST section
 
 # Company
 
 # Get all the companies
-get '/company/all/' do
+get '/api/company/all/' do
   content_type :json
   Company.all.to_json
 end
 
 # Get one company by id
-get '/company/:idcompany' do
+get '/api/company/:idcompany' do
   content_type :json
 
   idcompany = params['idcompany']
@@ -38,7 +40,7 @@ get '/company/:idcompany' do
 end
 
 # Create a new company
-post '/company/' do
+post '/api/company/' do
   content_type :json
 
   new_company = Company.create(params)
@@ -55,7 +57,7 @@ post '/company/' do
 end
 
 # Update an existing company
-put '/company/' do
+put '/api/company/' do
   content_type :json
 
   company_updated = Company.update(params)
@@ -74,7 +76,7 @@ put '/company/' do
 end
 
 # Create a new company
-post '/person/' do
+post '/api/person/' do
   content_type :json
 
   newperson_data = params.clone
