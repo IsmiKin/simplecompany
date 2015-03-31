@@ -5,7 +5,8 @@ require 'data_mapper' # requires all the gems listed above
 require 'dm-migrations'
 require 'yaml'
 
-configdb = YAML.load((File.read('config/database.yml')))["development"]
+configdb = YAML.load(ERB.new((File.read('config/database.yml'))).result)["development"]
+#configdb = YAML.load((File.read('config/database.yml')))["development"]
 
 DataMapper.setup(:default, "mysql://#{configdb['username']}:#{configdb['password']}@#{configdb['hostname']}/#{configdb['schema']}")
 
