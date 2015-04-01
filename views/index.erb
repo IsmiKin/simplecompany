@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html ng-app="scApp">
+<head>
+
+    <link rel="stylesheet" href="bower/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="bower/fontawesome/css/font-awesome.min.css" />
+
+    <script src="bower/jquery/dist/jquery.min.js"></script>
+    <script src="bower/footable/js/footable.js"></script>
+    <script src="bower/handlebars/handlebars.min.js"></script>
+    <script src="bower/angular/angular.js"></script>
+    <script src="bower/angular-route/angular-route.min.js"></script>
+    <script src="js/admincompany.js"></script>
+    <script src="js/main.js"></script>
+</head>
+<body ng-controller="mainController">
+
+<!-- HEADER AND NAVBAR -->
+<header>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Simple Company App</a>
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+                <li><a href="#/company/admin/"><i class="fa fa-gear"></i> Administrate companies</a></li>
+                <li><a href="#/company/create/"><i class="fa fa-plus"></i> New company</a></li>
+                <li><a href="#/contact"><i class="fa fa-comment"></i> Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<div id="main">
+
+  {{message}}
+  <br><hr/>
+
+  <div class="row">
+    <div class="col-md-2">
+
+    </div>
+    <div class="col-lg-8">
+        <div ng-view></div>
+    </div>
+    <div class="col-md-2">
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
