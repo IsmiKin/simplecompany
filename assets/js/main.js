@@ -1,6 +1,9 @@
 'use strict';
 
-var scApp = angular.module('scApp', ['ngRoute','admincMod']);
+
+
+var scApp = angular.module('scApp', ['ngRoute','admincMod','createMod']);
+
 
 scApp.config(function($routeProvider){
     $routeProvider
@@ -56,6 +59,9 @@ scApp.factory('companyFactory',['$http',function($http){
 
     dataFactory.insertCompany = function (ncompany) {
         return $http.post(urlBase + '/company/', ncompany);
+
+        //return $http.post(urlBase + '/company/', { name:"aaa",address:"www",country:"Albania",city:"ww",email:"ww@ww.com",phone:"222"});
+
     };
 
     dataFactory.updateCompany = function (ucompany) {

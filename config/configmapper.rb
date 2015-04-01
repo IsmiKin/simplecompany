@@ -5,9 +5,13 @@ require 'data_mapper' # requires all the gems listed above
 require 'dm-migrations'
 require 'yaml'
 
-configdb = YAML.load((File.read('config/database.yml')))["development"]
 
-DataMapper.setup(:default, "mysql://#{configdb['username']}:#{configdb['password']}@#{configdb['hostname']}/#{configdb['schema']}")
+
+#configdb = YAML.load(ERB.new((File.read('config/database.yml'))).result)["development"]
+#configdb = YAML.load((File.read('config/database.yml')))["development"]
+
+#DataMapper.setup(:default, "mysql://#{configdb['username']}:#{configdb['password']}@#{configdb['hostname']}/#{configdb['database']}")
+DataMapper.setup(:default, ENV['CLEARDB_DATABASE_URL'])
 
 
 
@@ -68,5 +72,7 @@ end
 DataMapper.finalize
 
 # Remove comments for first launch
-DataMapper.auto_migrate!
-DataMapper.auto_upgrade!
+
+#DataMapper.auto_migrate!
+#DataMapper.auto_upgrade!
+

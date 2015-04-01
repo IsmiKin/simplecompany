@@ -22,6 +22,10 @@ build/
 
 /assets/bower
 
+
+/config/database.yml
+
+
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm
 
 *.iml
@@ -35,7 +39,7 @@ build/
 # .idea/tasks.xml
 # .idea/dictionaries
 
-=======
+
 
 ## Environment normalisation:
 /.bundle/

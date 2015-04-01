@@ -1,0 +1,1 @@
+web: bundle exec ruby simplecompany.rb -p $PORT

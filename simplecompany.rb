@@ -5,8 +5,10 @@ require 'mysql2'
 require 'rubygems'
 require 'data_mapper' # requires all the gems listed above
 require 'json'
-require_relative 'config/configvars.rb'
-require_relative 'config/configmapper.rb'
+
+require './config/configvars.rb'
+require './config/configmapper.rb'
+
 require 'dm-serializer/to_json'
 require 'base64'
 
@@ -43,14 +45,31 @@ end
 post '/api/company/' do
   content_type :json
 
-  new_company = Company.create(params)
+
+  puts "Parametros------->> #{params}"
+  if params[:name].nil?
+    datacomp = JSON.parse(request.body.read)
+  else
+    datacomp = params
+  end
+
+  new_company = Company.create(datacomp)
+
+  new_company.errors.keys.each do |key|
+    new_company.errors[key].each do |error|
+      logger.info "errors #{key} => #{error}"
+    end
+  end
+
 
   if new_company.saved?
     new_bk = params.clone
     new_bk["created_at"] = Time.now
     new_bk["company_idcompany"] = new_company.attributes[:idcompany]
     Companybk.create(new_bk)
-    { :error => 0, :message => "The new company has been created." }.to_json
+
+    { :error => 0, :message => "The new company has been created." , :idcompany => new_company.attributes[:idcompany] }.to_json
+
   else
     { :error => 1, :message => "An error occured, check the parameters." }.to_json
   end
@@ -79,9 +98,18 @@ end
 post '/api/person/' do
   content_type :json
 
-  newperson_data = params.clone
-  binary_data = Base64.encode64(params[:passport][:tempfile].read)
-  if params.keys.include?('passport')
+
+  if params[:type].nil?
+    datacomp = JSON.parse(request.body.read)
+  else
+    datacomp = params
+  end
+
+  newperson_data = datacomp.clone
+
+  if datacomp.keys.include?('passport')
+    binary_data = Base64.encode64(datacomp[:passport][:tempfile].read)
+
     newperson_data["passport"] =  String(binary_data)
   else
     newperson_data.delete("passport")
