@@ -92,7 +92,8 @@ end
 put '/api/company/' do
   content_type :json
 
-  company_updated = Company.update(params)
+  c = Company.get(params["idcompany"])
+  company_updated = c.update(params)
 
   if company_updated
     new_bk = params.clone
