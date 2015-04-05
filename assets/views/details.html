@@ -1,2 +1,52 @@
 
-<h2><i class="fa fa-home"/>Details Section</h2>
+<h2><i class="fa fa-building-o"/> &nbsp; Details Section</h2>
+<hr/><br/>
+
+    <div class="row">
+        <label for="nameP" class="col-md-4 control-label">Name</label>
+        <p id="nameP" class="col-md-8" ng-bind="companySel.name"></p>
+    </div>
+
+    <div class="row">
+        <label for="addressP" class="col-md-4 control-label">Address</label>
+        <p id="addressP" class="col-md-8" ng-bind="companySel.address"></p>
+    </div>
+
+    <div class="row">
+        <label for="countryP" class="col-md-4 control-label">Country</label>
+        <p id="countryP" class="col-md-8" ng-bind="companySel.country"></p>
+    </div>
+
+    <div class="row">
+        <label for="cityP" class="col-md-4 control-label">City</label>
+        <p id="cityP" class="col-md-8" ng-bind="companySel.city"></p>
+    </div>
+
+    <div class="row">
+        <label for="emailP" class="col-md-4 control-label">E-mail</label>
+        <p id="emailP" class="col-md-8" ng-bind="companySel.email"></p>
+    </div>
+
+    <div class="row">
+        <label for="phoneP" class="col-md-4 control-label">Phone number</label>
+        <p id="phoneP" class="col-md-8" ng-bind="companySel.phone"></p>
+    </div>
+
+<hr/>
+<h3><i class="fa fa-briefcase"></i> &nbsp;Company staff</h3><br/>
+
+<br/><br/>
+
+<div class="containerStaff" ng-repeat="staff in staffSel">
+    <div class="row">
+        <p id="namePe" class="col-md-4" ng-bind="staff.name"></p>
+        <p id="typePe" class="col-md-4" ng-bind="staff.type"></p>
+        <!-- Add button to download PDF -->
+    </div>
+
+</div>
+
+<hr>
+<a href="#/company/admin/">
+    <button type="button" class="btn btn-default"><i class="fa fa-arrow-circle-left"></i> &nbsp; Back</button>
+</a>

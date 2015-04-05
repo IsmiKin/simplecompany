@@ -2,12 +2,12 @@
 
 
 
-var scApp = angular.module('scApp', ['ngRoute','admincMod','createMod']);
+var scApp = angular.module('scApp', ['ngRoute','admincMod','createMod','editMod','detailsMod']);
 
 
 scApp.config(function($routeProvider){
-    $routeProvider
 
+    $routeProvider
         .when('/', {
             templateUrl : 'views/home.html',
             controller  : 'mainController'
@@ -24,13 +24,17 @@ scApp.config(function($routeProvider){
         })
 
         .when('/company/edit/:idcompany', {
-            templateUrl : 'views/edit.html'/*,
-            controller  : 'editController'*/
+            templateUrl : 'views/edit.html',
+            controller  : 'editController'
         })
 
         .when('/company/create/', {
             templateUrl : 'views/create.html',
             controller  : 'createController'
+        })
+
+        .when('/contact/', {
+            templateUrl : 'views/contact.html'
         })
         .otherwise({ redirectTo: '/' });
 
@@ -57,15 +61,29 @@ scApp.factory('companyFactory',['$http',function($http){
         return $http.get(urlBase + '/company/' + id);
     };
 
+    dataFactory.getFullCompany = function (id) {
+        return $http.get(urlBase + '/company/full/' + id);
+    };
+
     dataFactory.insertCompany = function (ncompany) {
         return $http.post(urlBase + '/company/', ncompany);
-
-        //return $http.post(urlBase + '/company/', { name:"aaa",address:"www",country:"Albania",city:"ww",email:"ww@ww.com",phone:"222"});
-
     };
 
     dataFactory.updateCompany = function (ucompany) {
-        return $http.put(urlBase + '/company/', ucompany)
+        return $http({
+            url: urlBase + '/company/',
+            method: "PUT",
+            data: $.param(ucompany),
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        })
+    };
+
+    dataFactory.deleteCompany = function (dcompany) {
+        return $http.delete(urlBase + '/company/' + dcompany);
+    };
+
+    dataFactory.insertPerson = function (nperson) {
+        return $http.post(urlBase + '/person/', nperson);
     };
 
     dataFactory.insertPerson = function (nperson) {
