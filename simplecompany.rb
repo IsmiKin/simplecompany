@@ -5,8 +5,10 @@ require 'mysql2'
 require 'rubygems'
 require 'data_mapper' # requires all the gems listed above
 require 'json'
+
 require './config/configvars.rb'
 require './config/configmapper.rb'
+
 require 'dm-serializer/to_json'
 require 'base64'
 
@@ -23,7 +25,7 @@ end
 # Get all the companies
 get '/api/company/all/' do
   content_type :json
-  Company.all.to_json
+  Company.all(:active => true).to_json
 end
 
 # Get one company by id
@@ -34,7 +36,20 @@ get '/api/company/:idcompany' do
   if Company.get(idcompany).nil? || idcompany.nil?
     { :error => 1, :message => "An error occured, check the parameters." }.to_json
   else
+    { :error => 0,  :company => Company.first(:idcompany => idcompany, :active => true ) }.to_json
+  end
 
+end
+
+# Get one company by id
+get '/api/company/full/:idcompany' do
+  content_type :json
+
+  idcompany = params['idcompany']
+  if Company.get(idcompany).nil? || idcompany.nil?
+    { :error => 1, :message => "An error occured, check the parameters." }.to_json
+  else
+    { :error => 0,  :company => Company.first(:idcompany => idcompany, :active => true ), :staff => Person.all(:company_idcompany => idcompany, :active => true)}.to_json
   end
 
 end
@@ -42,6 +57,7 @@ end
 # Create a new company
 post '/api/company/' do
   content_type :json
+
 
   puts "Parametros------->> #{params}"
   if params[:name].nil?
@@ -58,12 +74,15 @@ post '/api/company/' do
     end
   end
 
+
   if new_company.saved?
     new_bk = params.clone
     new_bk["created_at"] = Time.now
     new_bk["company_idcompany"] = new_company.attributes[:idcompany]
     Companybk.create(new_bk)
+
     { :error => 0, :message => "The new company has been created." , :idcompany => new_company.attributes[:idcompany] }.to_json
+
   else
     { :error => 1, :message => "An error occured, check the parameters." }.to_json
   end
@@ -80,13 +99,15 @@ put '/api/company/' do
     new_bk["created_at"] = Time.now
     new_bk["company_idcompany"] =params["idcompany"]
     new_bk.delete("idcompany")
+    new_bk.delete("active")
     Companybk.create(new_bk)
-    { :error => 0, :message => "The new company has been created." }.to_json
+    { :error => 0, :message => "The new company has been updated." }.to_json
   else
     { :error => 1, :message => "An error occured, check the parameters." }.to_json
   end
 
 end
+
 
 # Create a new company
 post '/api/person/' do
@@ -100,11 +121,11 @@ post '/api/person/' do
 
   newperson_data = datacomp.clone
 
-  if datacomp.keys.include?('passport')
+  if datacomp.keys.include?('passport') && !datacomp.keys.include?('encoded')
     binary_data = Base64.encode64(datacomp[:passport][:tempfile].read)
     newperson_data["passport"] =  String(binary_data)
   else
-    newperson_data.delete("passport")
+    newperson_data.delete("encoded")
   end
 
   newperson_data["company_idcompany"]=newperson_data["company"]
@@ -122,6 +143,22 @@ post '/api/person/' do
     { :error => 0, :message => "The new person has been created." }.to_json
   else
     { :error => 1, :message => "An error occured, check the parameters." }.to_json
+  end
+
+end
+
+# Remove one company by id (logic removal)
+delete '/api/company/:idcompany' do
+  content_type :json
+
+  idcompany = params['idcompany']
+  if Company.get(idcompany).nil? || idcompany.nil?
+    { :error => 1, :message => "An error occured, check the parameters." }.to_json
+  else
+    c = Company.get(idcompany)
+    c.update(:active => false)
+
+    { :error => 0, :message => "The company with id #{idcompany} has been removed." }.to_json
   end
 
 end

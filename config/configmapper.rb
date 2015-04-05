@@ -5,11 +5,14 @@ require 'data_mapper' # requires all the gems listed above
 require 'dm-migrations'
 require 'yaml'
 
-#configdb = YAML.load(ERB.new((File.read('config/database.yml'))).result)["development"]
-#configdb = YAML.load((File.read('config/database.yml')))["development"]
 
-#DataMapper.setup(:default, "mysql://#{configdb['username']}:#{configdb['password']}@#{configdb['hostname']}/#{configdb['database']}")
-DataMapper.setup(:default, ENV['CLEARDB_DATABASE_URL'])
+
+#configdb = YAML.load(ERB.new((File.read('config/database.yml'))).result)["development"]
+configdb = YAML.load((File.read('config/database.yml')))["development"]
+
+DataMapper.setup(:default, "mysql://#{configdb['username']}:#{configdb['password']}@#{configdb['hostname']}/#{configdb['database']}")
+#DataMapper.setup(:default, ENV['CLEARDB_DATABASE_URL'])
+
 
 
 class Company
@@ -22,6 +25,7 @@ class Company
   property :city,               String  , required: true  , length: 1..100
   property :email,              Text    , format: :email_address
   property :phone,              String
+  property :active,             Boolean , default: true
 
   has n, :companybks
 end
@@ -48,6 +52,7 @@ class Person
   property :name,               String  , length: 1..250
   property :type,               Text    , required: true  , length: 1..250
   property :passport,           Text    , length: 500000
+  property :active,             Boolean , default: true
 
   has n, :personbks
   belongs_to :company
@@ -69,5 +74,7 @@ end
 DataMapper.finalize
 
 # Remove comments for first launch
+
 #DataMapper.auto_migrate!
 #DataMapper.auto_upgrade!
+

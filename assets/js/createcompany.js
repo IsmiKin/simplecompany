@@ -3,13 +3,15 @@
 
 var scApp = angular.module('createMod',[]);
 
-scApp.controller('createController' , function($scope,$rootScope,companyFactory,$http) {
+scApp.controller('createController' , function($scope,$rootScope,companyFactory,$http,$location,$log) {
 
     $scope.status;
     $scope.newcompany;
+    var reader = new FileReader();
+
 
     $scope.addPerson = function(){
-       $(".containerStuff").append(Handlebars.templates.person_input());
+       $(".containerStaff").append(Handlebars.templates.person_input());
        $(".destroyPerson").click(function(){
            $(this).parent().remove();
        });
@@ -21,29 +23,48 @@ scApp.controller('createController' , function($scope,$rootScope,companyFactory,
         companyFactory.insertCompany(JSON.stringify(dataToSend))
             .success(function (dataresponse) {
                 if(dataresponse.error==0){
-                    assignStuff(dataresponse.idcompany);
+                    assignStaff(dataresponse.idcompany);
                 }
+                $location.path('company/admin/')
 
             })
             .error(function (error) {
             });
     };
 
-    function assignStuff(idcompany){
-        $(".containerStuff").find("form").each(function(){
+    function assignStaff(idcompany){
+        $(".containerStaff").find("form").each(function(){
             var $form = $(this);
             var dataToSend = getFormData($form);
+            var file_u = $form.find(".fileUploader").get(0).files[0];
             dataToSend["company"] = idcompany;
-            companyFactory.insertPerson(JSON.stringify(dataToSend))
-                .success(function (dataresponse) {
-                    if(dataresponse.error==0){
 
-                    }
+            if(file_u!=undefined){
+                reader.onload = function(e) {
+                    $log.debug(reader.result);
+                    dataToSend["passport"] = reader.result.split('base64,')[1];
+                    dataToSend["encoded"] = true;
+                    ajaxAssignStaff(dataToSend);
+                };
 
-                })
-                .error(function (error) {
-                });
+                reader.readAsDataURL(file_u);
+            }else{
+                ajaxAssignStaff(dataToSend);
+            }
+
         });
+    }
+
+    function ajaxAssignStaff(dataToSend){
+        companyFactory.insertPerson(JSON.stringify(dataToSend))
+            .success(function (dataresponse) {
+                if(dataresponse.error==0){
+
+                }
+
+            })
+            .error(function (error) {
+            });
     }
 
 

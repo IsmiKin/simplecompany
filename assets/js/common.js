@@ -7,6 +7,4 @@ function getFormData($form){
     });
 
     return indexed_array;
-}/**
- * Created by ismikin on 31/03/15.
- */
+}
