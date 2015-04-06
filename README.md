@@ -237,6 +237,7 @@ Assign person to a Company.
   ```
 
 **Note:** If you are using [Rest Postman Client] (Chrome App) you can download this collection or copy it from this [gist collection].
+
 **Note2:** All the examples are made using all the attributes. You can avoid non-mandatory attributes. You can observe this information in the next "Model Section".
 
 ##License
