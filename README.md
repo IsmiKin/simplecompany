@@ -236,7 +236,7 @@ Assign person to a Company.
       }
   ```
 
-**Note:** If you are using [Rest Postman Client] (Chrome App) you can download this collection or copy it from this [gist collection].
+**Note:** If you are using [Rest Postman Client] - the Chrome App; you can download this collection or copy it from this [gist collection].
 
 **Note2:** All the examples are made using all the attributes. You can avoid non-mandatory attributes. You can observe this information in the next "Model Section".
 
@@ -244,6 +244,6 @@ Assign person to a Company.
 MIT
 
 [gist collection]:https://gist.github.com/IsmiKin/20eb40d95c58f7f9f8f2
-[Rest Postman Client]:http://www.getpostman.com/
+[Rest Postman Client]:http://getpostman.com/
 [live demo]:http://simplecompany.herokuapp.com/
 [Model]:https://github.com/IsmiKin/simplecompany/wiki/Model
