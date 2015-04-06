@@ -1,10 +1,10 @@
 development:
-  host: simplecompany.herokuapp.com
+  host: localhost
   adapter: mysql2
   encoding: utf8
-  database: heroku_111792f52e9568e
-  username: bb484da5c6be59
-  password: 9ba03ff4
+  database: simplecompany
+  username: admin
+  password: admin
   pool: 5
   timeout: 5000
 
@@ -18,12 +18,12 @@ test:
   pool: 5
   timeout: 5000
 
-production:
-  host: simplecompany.herokuapp.com
+development:
+  host: localhost
   adapter: mysql2
   encoding: utf8
-  database: heroku_111792f52e9568e
-  username: bb484da5c6be59
-  password: 9ba03ff4
+  database: simplecompany
+  username: admin
+  password: admin
   pool: 5
   timeout: 5000
